@@ -9,3 +9,8 @@ export interface Stage {
   name: string;
   steps: Step[];
 }
+
+export interface RandomFact {
+  id: string;
+  text: string
+}

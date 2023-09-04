@@ -21,9 +21,19 @@ export const useHasNextStageBegan = (stageId: string) => {
     throw Error("Stage not found");
   }
 
-  if (index === stages.length - 1){
+  if (index === stages.length - 1) {
     return false;
   }
 
   return stages[index + 1]!.steps.some((step) => step.isCompleted);
-}
+};
+
+export const useIsLastUnfinishedStep = (stepId: string) => {
+  const { stages } = useStore();
+
+  return stages.every((stage) => {
+    return stage.steps
+      .filter((step) => step.id !== stepId)
+      .every((step) => step.isCompleted);
+  });
+};

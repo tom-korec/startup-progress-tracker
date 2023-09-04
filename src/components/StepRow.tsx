@@ -3,8 +3,13 @@ import React, { useState } from "react";
 import type { Step } from "~/types";
 import { CheckBox } from "~/components/CheckBox";
 import { useStoreDispatch } from "~/core/store";
-import { useHasNextStageBegan } from "~/core/store/selectors";
+import {
+  useHasNextStageBegan,
+  useIsLastUnfinishedStep,
+} from "~/core/store/selectors";
 import { ConfirmModal } from "~/components/ConfirmModal";
+import { getRandomFact } from "~/core/api";
+import toast from "react-hot-toast";
 
 export interface StepProps {
   step: Step;
@@ -17,6 +22,8 @@ export const StepRow: React.FC<StepProps> = ({ step, stageId, disabled }) => {
 
   const canCheckWithoutConfirmation = !useHasNextStageBegan(stageId);
 
+  const isLastUnfinished = useIsLastUnfinishedStep(step.id);
+
   const [isConfirmModalOpened, setIsConfirmModalOpened] = useState(false);
 
   return (
@@ -24,7 +31,7 @@ export const StepRow: React.FC<StepProps> = ({ step, stageId, disabled }) => {
       {isConfirmModalOpened && (
         <ConfirmModal
           onConfirm={() => {
-            setIsConfirmModalOpened(false)
+            setIsConfirmModalOpened(false);
             resetNextStages(stageId);
             toggleStep(stageId, step.id);
           }}
@@ -38,6 +45,12 @@ export const StepRow: React.FC<StepProps> = ({ step, stageId, disabled }) => {
         onChange={() => {
           if (canCheckWithoutConfirmation) {
             toggleStep(stageId, step.id);
+
+            if (!step.isCompleted && isLastUnfinished) {
+              void getRandomFact().then((fact) => {
+                toast.success(fact, { duration: 10000});
+              });
+            }
           } else {
             setIsConfirmModalOpened(true);
           }
