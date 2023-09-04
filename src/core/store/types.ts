@@ -40,7 +40,7 @@ export type DispatchActions = {
   addStage: (stage: Stage) => void;
   removeStage: (id: string) => void;
   editStage: (stage: Stage) => void;
-  addStep: (phaseId: string, step: Step) => void;
-  removeStep: (phaseId: string, stepId: string) => void;
-  toggleStep: (phaseId: string, stepId: string) => void;
+  addStep: (stageId: string, step: Step) => void;
+  removeStep: (stageId: string, stepId: string) => void;
+  toggleStep: (stageId: string, stepId: string) => void;
 };

@@ -1,11 +1,14 @@
-import { Phase } from "~/components/Phase";
+import { StageCard } from "~/components/StageCard";
+import { useStore } from "~/core/store";
 
 export const StartupProgress = () => {
-  // load data from local storage
+  const { stages } = useStore();
 
   return (
-    <div>
-      <Phase />
+    <div className={"flex flex-col items-center gap-8"}>
+      {stages.map((stage, index) => (
+        <StageCard key={stage.id} stage={stage} order={index + 1} />
+      ))}
     </div>
   );
 };
