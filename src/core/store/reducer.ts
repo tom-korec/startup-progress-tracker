@@ -43,7 +43,7 @@ export const reducer = (state: Store, action: Action): Store => {
           if (stage.id === action.stageId) {
             return {
               ...stage,
-              steps: stage.steps.filter((step) => step.id !== action.id),
+              steps: stage.steps.filter((step) => step.id !== action.stepId),
             };
           }
           return stage;
@@ -65,6 +65,29 @@ export const reducer = (state: Store, action: Action): Store => {
                 }
                 return step;
               }),
+            };
+          }
+          return stage;
+        }),
+      };
+
+    case Actions.RESET_NEXT_STAGES:
+      let isNextStage = false;
+
+      return {
+        ...state,
+        stages: state.stages.map((stage) => {
+          if (stage.id === action.stageId) {
+            isNextStage = true;
+            return stage;
+          }
+          if (isNextStage) {
+            return {
+              ...stage,
+              steps: stage.steps.map((step) => ({
+                ...step,
+                isCompleted: false,
+              })),
             };
           }
           return stage;

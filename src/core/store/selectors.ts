@@ -11,3 +11,19 @@ export const useIsPreviousStageCompleted = (stageOrder: number) => {
 
   return stages[index - 1]!.steps.every((step) => step.isCompleted);
 };
+
+export const useHasNextStageBegan = (stageId: string) => {
+  const { stages } = useStore();
+
+  const index = stages.findIndex((stage) => stage.id === stageId);
+
+  if (index === -1) {
+    throw Error("Stage not found");
+  }
+
+  if (index === stages.length - 1){
+    return false;
+  }
+
+  return stages[index + 1]!.steps.some((step) => step.isCompleted);
+}

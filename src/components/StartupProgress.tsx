@@ -1,8 +1,9 @@
 import { StageCard } from "~/components/StageCard";
 import { useStore } from "~/core/store";
 
-export const StartupProgress = () => {
+const StartupProgress = () => {
   const { stages } = useStore();
+
 
   return (
     <div className={"flex flex-col items-center gap-8"}>
@@ -12,3 +13,5 @@ export const StartupProgress = () => {
     </div>
   );
 };
+
+export default StartupProgress;

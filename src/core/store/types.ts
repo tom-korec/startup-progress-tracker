@@ -19,6 +19,10 @@ export type Action =
       stage: Stage;
     }
   | {
+      type: Actions.RESET_NEXT_STAGES;
+      stageId: string;
+    }
+  | {
       type: Actions.ADD_STEP;
       stageId: string;
       step: Step;
@@ -40,6 +44,7 @@ export type DispatchActions = {
   addStage: (stage: Stage) => void;
   removeStage: (id: string) => void;
   editStage: (stage: Stage) => void;
+  resetNextStages: (stageId: string) => void;
   addStep: (stageId: string, step: Step) => void;
   removeStep: (stageId: string, stepId: string) => void;
   toggleStep: (stageId: string, stepId: string) => void;

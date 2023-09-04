@@ -71,5 +71,18 @@ export const useStoreDispatch = (): DispatchActions => {
     [dispatch],
   );
 
-  return { addStage, removeStage, editStage, addStep, removeStep, toggleStep };
+  const resetNextStages = useCallback(
+    (stageId: string) => dispatch({ type: Actions.RESET_NEXT_STAGES, stageId }),
+    [dispatch],
+  );
+
+  return {
+    addStage,
+    removeStage,
+    editStage,
+    addStep,
+    removeStep,
+    toggleStep,
+    resetNextStages,
+  };
 };
