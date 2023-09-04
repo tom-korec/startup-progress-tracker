@@ -37,3 +37,9 @@ export const useIsLastUnfinishedStep = (stepId: string) => {
       .every((step) => step.isCompleted);
   });
 };
+
+export const useIsEveryStageCompleted = () => {
+  const { stages } = useStore();
+
+  return stages.every((stage) => stage.steps.every((step) => step.isCompleted));
+};

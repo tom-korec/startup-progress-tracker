@@ -4,6 +4,7 @@ import { StepRow } from "~/components/StepRow";
 import { CardNumber } from "~/components/CardNumber";
 import { CardCheckMark } from "~/components/CardCheckMark";
 import { useIsPreviousStageCompleted } from "~/core/store/selectors";
+import { StageCompletionConfetti } from "~/components/StageCompletionConfetti";
 
 interface StageProps {
   stage: Stage;
@@ -26,6 +27,8 @@ export const StageCard: React.FC<StageProps> = ({ stage, order }) => {
       } p-4 text-purple-950`}
     >
       <CardNumber number={order} />
+
+      <StageCompletionConfetti stage={stage} />
 
       {isCompleted && <CardCheckMark />}
 
