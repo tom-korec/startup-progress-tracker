@@ -1,11 +1,11 @@
-export interface Task {
+export interface Step {
   id: string;
   name: string;
   isCompleted: boolean;
 }
 
-export interface Phase {
+export interface Stage {
   id: string;
   name: string;
-  tasks: Task[];
+  steps: Step[];
 }
